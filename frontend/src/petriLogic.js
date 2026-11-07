@@ -8,16 +8,13 @@ export function contarVizinhosVivos(matriz, linha, coluna) {
     const tamanho = matriz.length;
     let vizinhosVivos = 0;
 
-    // Percorre o quadrado 3x3 ao redor da célula (-1, 0, +1)
     for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-            // Ignora a própria célula central
             if (i === 0 && j === 0) continue;
 
             const linhaVizinha = linha + i;
             const colunaVizinha = coluna + j;
 
-            // Tratamento de borda: verifica se a vizinha está dentro dos limites da grade
             if (
                 linhaVizinha >= 0 &&
                 linhaVizinha < tamanho &&
@@ -32,10 +29,12 @@ export function contarVizinhosVivos(matriz, linha, coluna) {
     return vizinhosVivos;
 }
 
-// 3. Calcula a próxima geração usando uma segunda matriz isolada
+// 3. Calcula a próxima geração e retorna métricas de nascimentos e mortes da iteração
 export function calcularProximaGeracao(matrizAtual) {
     const tamanho = matrizAtual.length;
     const proximaMatriz = criarMatriz(tamanho);
+    let nascidas = 0;
+    let mortas = 0;
 
     for (let l = 0; l < tamanho; l++) {
         for (let c = 0; c < tamanho; c++) {
@@ -43,22 +42,26 @@ export function calcularProximaGeracao(matrizAtual) {
             const vizinhos = contarVizinhosVivos(matrizAtual, l, c);
 
             if (estadoAtual === 1) {
-                // Célula Viva: sobrevive com 2 ou 3 vizinhas; morre por isolamento (<2) ou superpopulação (>3)
                 if (vizinhos === 2 || vizinhos === 3) {
                     proximaMatriz[l][c] = 1;
                 } else {
                     proximaMatriz[l][c] = 0;
+                    mortas++; // Estava viva e morreu por isolamento (<2) ou superpopulação (>3)
                 }
             } else {
-                // Célula Morta: nasce se tiver exatamente 3 vizinhas vivas
                 if (vizinhos === 3) {
                     proximaMatriz[l][c] = 1;
+                    nascidas++; // Estava morta e nasceu por ter exatamente 3 vizinhas vivas
                 }
             }
         }
     }
 
-    return proximaMatriz;
+    return {
+        proximaMatriz,
+        nascidas,
+        mortas
+    };
 }
 
 // 4. Conta o total de células vivas na geração atual (RF08)
