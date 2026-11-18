@@ -46,12 +46,12 @@ export function calcularProximaGeracao(matrizAtual) {
                     proximaMatriz[l][c] = 1;
                 } else {
                     proximaMatriz[l][c] = 0;
-                    mortas++; // Estava viva e morreu por isolamento (<2) ou superpopulação (>3)
+                    mortas++; 
                 }
             } else {
                 if (vizinhos === 3) {
                     proximaMatriz[l][c] = 1;
-                    nascidas++; // Estava morta e nasceu por ter exatamente 3 vizinhas vivas
+                    nascidas++; 
                 }
             }
         }
