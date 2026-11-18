@@ -5,7 +5,6 @@ import {
   contarCelulasVivas
 } from './petriLogic.js';
 
-// Estado global reativo
 export const tamanhoGrade = ref(10);
 export const matriz = ref(criarMatriz(tamanhoGrade.value));
 export const geracao = ref(0);
@@ -17,7 +16,6 @@ export const avisoParada = ref('');
 
 let intervaloId = null;
 
-// Estatísticas calculadas automaticamente para o painel lateral
 export const celulasVivas = computed(() => contarCelulasVivas(matriz.value));
 export const totalCelulas = computed(() => tamanhoGrade.value * tamanhoGrade.value);
 export const celulasMortas = computed(() => totalCelulas.value - celulasVivas.value);
@@ -47,7 +45,6 @@ export function evoluirUmaGeracao() {
   mortasUltimaIteracao.value = resultado.mortas;
   geracao.value++;
 
-  // Verifica condições de parada automática
   if (celulasVivas.value === 0) {
     pausarSimulacao();
     avisoParada.value = 'Simulação encerrada automaticamente: todas as células morreram (extinção).';

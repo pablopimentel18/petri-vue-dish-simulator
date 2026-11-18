@@ -1,9 +1,7 @@
-// 1. Cria uma matriz bidimensional NxN preenchida com 0 (células mortas)
 export function criarMatriz(tamanho) {
     return Array.from({ length: tamanho }, () => Array(tamanho).fill(0));
 }
 
-// 2. Conta quantas das 8 células vizinhas estão vivas, respeitando as bordas finitas
 export function contarVizinhosVivos(matriz, linha, coluna) {
     const tamanho = matriz.length;
     let vizinhosVivos = 0;
@@ -29,7 +27,6 @@ export function contarVizinhosVivos(matriz, linha, coluna) {
     return vizinhosVivos;
 }
 
-// 3. Calcula a próxima geração e retorna métricas de nascimentos e mortes da iteração
 export function calcularProximaGeracao(matrizAtual) {
     const tamanho = matrizAtual.length;
     const proximaMatriz = criarMatriz(tamanho);
@@ -64,7 +61,6 @@ export function calcularProximaGeracao(matrizAtual) {
     };
 }
 
-// 4. Conta o total de células vivas na geração atual (RF08)
 export function contarCelulasVivas(matriz) {
     let total = 0;
     for (let l = 0; l < matriz.length; l++) {
