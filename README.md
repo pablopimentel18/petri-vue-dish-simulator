@@ -112,6 +112,6 @@ npm run dev
 ---
 
 ## 👥 Equipe Desenvolvedora
-* Pablo da Rosa Pimentel
+* Pablo Pimentel
 * Kaio
-* Saymon
+* Pedro
